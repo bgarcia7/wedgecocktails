@@ -1,6 +1,9 @@
+// Web Application
 /node_modules/*
-
-
 .eslint*
 .next/*
 package-lock.json
+
+// Data Application
+venv
+.ipynb*

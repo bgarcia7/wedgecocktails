@@ -19,6 +19,7 @@ const searchClient = algoliasearch(
 'XDZGBI1FCU',
 'accb47948bbc928311f5b97d9c18ea5a'
 );
+// const index = searchClient.initIndex('ingredients');
 
 export var results = [];
 
@@ -40,6 +41,20 @@ const IngredientSearch = () => {
         getRecommendations()
         // console.log(data)
     }, [selectedIds])
+
+    useEffect(() => {
+        if (window.location.search.includes('?ingredients=')){
+            // index.findObject({objectID: window.location.search.split('?ingredients=')[1]}).then(({ object }) => {
+            let ingredients = window.location.search.split('?ingredients=')
+            ingredients.length ? setSelectedIds(ingredients[1].split("%2C")) : null
+        }
+    }, [])
+
+    useEffect(() => {
+        let currentUrlParams = new URLSearchParams(window.location.search);
+        currentUrlParams.set('ingredients', selectedIds);
+        selectedIds.length ? window.history.replaceState(null, null, "/?" + currentUrlParams.toString()) : null;
+    }, [selectedIds])
     
     const toggleIngredient = (objectID, hit) => {
         return () => {
@@ -55,7 +70,9 @@ const IngredientSearch = () => {
 
     const Hits = ({ hits }) => (
         <div className="flex justify-between flex-wrap align-items-center overflow-scroll min-h-[50vh]">
-            {hits.map((hit, ix) => (
+            {hits.map((hit, ix) => {
+                ingredientsCache[hits.objectID] = hit
+                return (
                 <div key={hit.objectId + "-hits-" + String(ix)} className={`flex flex-col bg-white justify-around h-40 sm:h-60 w-[45%] sm:w-[30%] md:w-[22%] lg:w-[15%] rounded-lg shadow-sm p-2 my-3 duration-150 ease-in hover:ease-out hover:-translate-y-0.5 hover:shadow-md hover:cursor-pointer ${selectedIds.includes(hit.objectID) ? "opacity-20 hover:opacity-40" : "opacity-100 hover:opacity-100"}`}
                 onClick={toggleIngredient(hit.objectID, hit)}>
                     <img className="h-[60%] object-contain" src={'https://cocktail-ingredient-images.s3-us-west-2.amazonaws.com/' + hit.objectID + '.png'}/>
@@ -63,7 +80,7 @@ const IngredientSearch = () => {
                         {hit.name}
                     </p>
                 </div>
-            ))}
+            )})}
         </div>
       );
       
@@ -139,14 +156,15 @@ function arrayToString(array) {
                  <SnapList className="flex">
                  {selectedIds.map((sid, ix) => {
                     let hit = ingredientsCache[sid]
-                    return (
-                        <div key={sid + "-pantry-" + String(ix)} onClick={toggleIngredient(hit.objectID, hit)}>
-                        <SnapItem className={`flex flex-col bg-white justify-around h-[50px] w-[50px] rounded-sm shadow-md p-2 my-3 ml-3 duration-150 ease-in hover:ease-out hover:-translate-y-0.5 hover:shadow-md hover:cursor-pointer`}
-                        >
-                            <img className="h-[80%] object-contain" src={'https://cocktail-ingredient-images.s3-us-west-2.amazonaws.com/' + hit.objectID + '.png'}/>
-                        </SnapItem>
-                        </div>
-                    )
+                    return hit ? 
+                        (
+                            <div key={sid + "-pantry-" + String(ix)} onClick={toggleIngredient(hit.objectID, hit)}>
+                            <SnapItem className={`flex flex-col bg-white justify-around h-[50px] w-[50px] rounded-sm shadow-md p-2 my-3 ml-3 duration-150 ease-in hover:ease-out hover:-translate-y-0.5 hover:shadow-md hover:cursor-pointer`}
+                            >
+                                <img className="h-[80%] object-contain" src={'https://cocktail-ingredient-images.s3-us-west-2.amazonaws.com/' + hit.objectID + '.png'}/>
+                            </SnapItem>
+                            </div>
+                        ) : null
                  }
             )}
 

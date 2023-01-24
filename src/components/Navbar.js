@@ -34,14 +34,14 @@ function Navbar() {
               </a>
             ))}
           </div>
-          <div className="hidden lg:flex lg:min-w-0 lg:flex-1 lg:justify-end">
+          {/* <div className="hidden lg:flex lg:min-w-0 lg:flex-1 lg:justify-end">
             <a
               href="#"
               className="z-10 inline-block rounded-lg px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm ring-1 ring-gray-900/10 hover:ring-gray-900/20"
             >
               Log in
             </a>
-          </div>
+          </div> */}
         </nav>
         <Dialog as="div" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
           <Dialog.Panel focus="true" className="fixed inset-0 z-10 overflow-y-auto bg-white px-6 py-6 lg:hidden">

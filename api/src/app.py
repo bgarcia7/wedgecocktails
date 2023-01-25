@@ -66,7 +66,8 @@ def generate_cocktail():
         frequency_penalty=1,
         presence_penalty=1
     )
-    print(response)
+
+    print('RECIPE RESPONSE', response)
     cocktail = literal_eval(literal_eval(response['choices'][0]['text'].strip()))
     response = openai.Image.create(
         prompt=GENERATE_COCKTAIL_IMAGE_PROMPT_PREFIX.format(name=cocktail['name'], serving_container=cocktail['serving_container'], ingredients=', '.join(cocktail['ingredients'])),
@@ -74,8 +75,7 @@ def generate_cocktail():
         size="1024x1024"
     )
     image_url = response['data'][0]['url']
-    print(image_url)
-    return {'cocktail':cocktail, 'cocktail_image':image_url}
+    print('RECIPE IMAGE', response)
 
 # We only need this for local development.
 if __name__ == '__main__':

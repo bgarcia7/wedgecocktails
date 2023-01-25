@@ -16,11 +16,11 @@ openai.api_key = os.environ.get('OPENAI_KEY')
 
 GENERATE_COCKTAIL_PROMPT_PREFIX = """
 
-Here is an example of a drink recipe in properly formatted json:
+Here is an example of a drink recipe in properly formatted JSON:
 
 '{"name": "Bald Eagle","ingredients": ["2 fl oz of Reposado Tequila","3/4 fl oz of Grapefruit Juice","1/2 fl oz of Cranberry Juice", "1/4 fl oz of Lemon Juice", "1/4 fl oz of Simple Syrup"],"directions": "Throw all ingredients with ice and strain into chilled glass", "serving_container": "couple glass"}'
 
-Format your response as properly structured json with no unnecessary white spaces or newlines, please. Please make a new recipes using some or all of the following ingredients: 
+Format your response as properly formatted JSON like in the example above with no unnecessary white spaces or newlines. Now make a new recipe only the following ingredients: 
 """
 
 GENERATE_COCKTAIL_IMAGE_PROMPT_PREFIX = "a clear, bright picture of a cocktail named {name} served in an {serving_container} and made with {ingredients}; cocktail should take up half the image; cocktail should be centered; white background"
@@ -44,17 +44,17 @@ def recommend_cocktails():
     cdf['ing_percentage'] = cdf.ing_hits.map(lambda x: float(len(x))) / cdf.num_ingredients
     cdf['ing_percentage'] = cdf.ing_percentage.map(lambda x: int(x*100)/100.0)
     cdf = cdf.sort_values('ing_percentage', ascending=False)
-    print('returning top cocktails', cdf.to_dict(orient='records')[:1])
     return {'cocktails':cdf.to_dict(orient='records')[:20]}
 
 @app.route('/generate_cocktail', methods=['GET','POST'])
 def generate_cocktail():
-    # ing_list = request.json['ingredients']
-    ing_list = ['scotch whiskey', 'lime juice', 'egg', 'white wine']
+    ing_list = request.json['ingredients']
+    print(', '.join(ing_list)[:-1])
+    # ing_list = ['scotch whiskey', 'lime juice', 'egg', 'white wine']
     response = openai.Completion.create(
         model="text-davinci-003",
-        prompt=GENERATE_COCKTAIL_PROMPT_PREFIX + ', '.join(ing_list),
-        temperature=0.6,
+        prompt=GENERATE_COCKTAIL_PROMPT_PREFIX + ', '.join(ing_list)[:-2],
+        temperature=0.5,
         max_tokens=400,
         top_p=1,
         frequency_penalty=1,
@@ -62,7 +62,7 @@ def generate_cocktail():
     )
 
     print('RECIPE RESPONSE', response)
-    cocktail = literal_eval(literal_eval(response['choices'][0]['text'].strip()))
+    cocktail = literal_eval(literal_eval("'{" + response['choices'][0]['text'].strip().split('{')[1]))
     response = openai.Image.create(
         prompt=GENERATE_COCKTAIL_IMAGE_PROMPT_PREFIX.format(name=cocktail['name'], serving_container=cocktail['serving_container'], ingredients=', '.join(cocktail['ingredients'])),
         n=1,
@@ -70,6 +70,8 @@ def generate_cocktail():
     )
     image_url = response['data'][0]['url']
     print('RECIPE IMAGE', response)
+    cocktail['image_url'] = image_url
+    return {'cocktails':[cocktail]}
 
 # We only need this for local development.
 if __name__ == '__main__':

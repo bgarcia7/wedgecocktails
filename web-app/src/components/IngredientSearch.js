@@ -16,20 +16,34 @@ import { SnapList, SnapItem, useScroll, useDragToScroll } from 'react-snaplist-c
 import { LinearGradient } from 'linear-gradient'
 import { styles } from '@/styles';
 const searchClient = algoliasearch(
-'XDZGBI1FCU',
-'accb47948bbc928311f5b97d9c18ea5a'
+    'XDZGBI1FCU',
+    'accb47948bbc928311f5b97d9c18ea5a'
 );
 // const index = searchClient.initIndex('ingredients');
 
 export var results = [];
 
-const IngredientSearch = () => {
+const IngredientSearch = ({initialData}) => {
+    let [data, setData] = useState(initialData)
+    let [genCocktail, setGenCocktail] = useState([])
     const [ingredientsCache, setIngredientsCache] = useState({})
     const [selectedIds, setSelectedIds] = useState([])
-    // const history = useHistory
+
+    const generateCocktail = () => {
+        // axios.post('https://vjj6xrqlv1.execute-api.us-west-2.amazonaws.com/production/generate_cocktail', {'ingredients': selectedIds})
+        axios.post('http://127.0.0.1:5000/generate_cocktail', {'ingredients': selectedIds})
+
+            .then(res => {
+                var savedResults = res.data.cocktails
+                setGenCocktail(savedResults)
+            })
+            .catch(err => {console.log(err)})
+        }
+
 
     const getRecommendations = () => {
-        axios.post('https://vjj6xrqlv1.execute-api.us-west-2.amazonaws.com/production/recommend_cocktails', {'ingredients': selectedIds})
+        // axios.post('https://vjj6xrqlv1.execute-api.us-west-2.amazonaws.com/production/recommend_cocktails', {'ingredients': selectedIds})
+        axios.post('http://127.0.0.1:5000/recommend_cocktails', {'ingredients': selectedIds})
             .then(res => {
                 var savedResults = res.data.cocktails
                 setData(savedResults)
@@ -39,7 +53,6 @@ const IngredientSearch = () => {
 
     useEffect(() => {
         getRecommendations()
-        console.log(data)
     }, [selectedIds])
 
     useEffect(() => {
@@ -87,7 +100,6 @@ const IngredientSearch = () => {
     const CustomHits = connectHits(Hits);
       
     // RECOMMENDATIONS LOGIC 
-    let [data, setData] = useState([])
 
 function arrayToString(array) {
     var string = '';
@@ -105,7 +117,7 @@ function arrayToString(array) {
   return (
     <div className="max-w-full">
         <div> 
-            { data.length ? 
+            { data?.length ? 
             <SnapList ref={snapList} tabIndex={0} className="mt-10">
             {data.map((cocktail, ix) => (
             <SnapItem key={cocktail.id + "-recommendation-" + String(ix)} className="flex flex-col align-middle justify-top overflow-hidden bg-white h-[62vh] ring-1 ring-gray-100 rounded-lg shadow-lg w-[70%] sm:w-[25%] mt-1 mb-1 mr-2 ml-1 p-4 sm:mr-10 sm:p-8 rounded-lg shadow-sm duration-150 ease-in hover:ease-out hover:-translate-y-0.5 hover:shadow-md hover:cursor-pointer ">
@@ -141,7 +153,30 @@ function arrayToString(array) {
 
         </div>}
         </div>
-        {/* <PrimaryButton onClick={getRecommendations} text="See Results"/> */}
+        <PrimaryButton onClick={generateCocktail} text="Generate AI Cocktail"/>
+        {genCocktail.length ?
+             <div className="flex flex-col align-middle justify-top overflow-hidden bg-white h-[62vh] ring-1 ring-gray-100 rounded-lg shadow-lg w-[70%] sm:w-[25%] mt-1 mb-1 mr-2 ml-1 p-4 sm:mr-10 sm:p-8 rounded-lg shadow-sm duration-150 ease-in hover:ease-out hover:-translate-y-0.5 hover:shadow-md hover:cursor-pointer ">
+                   <div className="text-clip text-ellipsis flex flex-col align-center">
+                        <div className="">
+                            <img className="h-[20vh] m-auto" src={genCocktail[0].image_url}/>
+                        </div>
+                            <p>{genCocktail[0].name}</p>
+                        <p className="text-sm">
+                            {genCocktail[0].ingredients}
+                        </p>
+                        <p className="text-sm">
+                            {genCocktail[0].serving_container}
+                        </p>
+                        {/* PERCENT OF INGREDIENT HITS AND INSTRUCTIONS */}
+                            {/* <p margin="10px 0px 0px 0px;">{String(cocktail.ing_percentage * 100) + '% of ingredients available'}</p> */}
+                        <div className="w-[33%]">
+                            <h2>Directions</h2>
+                            <p margin="10px 0px; ">{genCocktail[0].directions}</p>
+                        </div>
+                    </div>
+                </div>
+            : null
+            }
 
         <div className={`ease-out duration-700 ${selectedIds.length ? "text-md pt-10" : "text-4xl font-bold sm:text-5xl tracking-tight pt-40 pb-20"}`}>
             {selectedIds.length ? 
@@ -191,5 +226,7 @@ function arrayToString(array) {
     </div>
   )
 }
+
+// This gets called on every request
 
 export default IngredientSearch

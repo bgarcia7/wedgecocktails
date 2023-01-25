@@ -3,7 +3,7 @@ import { strings } from '../constants'
 import { BGGradients, PrimaryButton, IngredientSearch } from './'
 import { styles } from '../styles'
 
-export default function Home() {
+export default function Home({ initialData }) {
   return (
     <div className="max-w-[100vw] isolate bg-white">
         <div className={`${styles.xPadding} relative`}>
@@ -22,7 +22,7 @@ export default function Home() {
               <BGGradients/>
             </div>
           </div>
-          <IngredientSearch/>
+          <IngredientSearch initialData={initialData}/>
         </div>
     </div>
   )

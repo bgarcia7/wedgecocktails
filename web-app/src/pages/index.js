@@ -1,11 +1,12 @@
 import Head from 'next/head'
+import axios from 'axios'
 import Image from 'next/image'
 import { Home, Navbar }  from '../components'
 import { Inter } from '@next/font/google'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Main() {
+function Main({initialData}) {
   return (
     <>
       <Head>
@@ -17,7 +18,7 @@ export default function Main() {
       </Head>
       <main>
         <Navbar/>
-        <Home/>
+        <Home initialData={initialData}/>
         <div className="w-full px-10 h-[400px] flex align-items-center justify-center">
           TESTING
         </div>
@@ -25,3 +26,16 @@ export default function Main() {
     </>
   )
 }
+
+export async function getServerSideProps({ query }) {
+    console.log('QUERY', query)
+    let ingredients = []
+    if (query.ingredients){
+      ingredients = query.ingredients.split(',')
+    }
+    const res = await axios.post('https://vjj6xrqlv1.execute-api.us-west-2.amazonaws.com/production/recommend_cocktails', {'ingredients': ingredients})
+    const data = await res.data.cocktails 
+    return { props: { initialData:data } } 
+} 
+
+export default Main

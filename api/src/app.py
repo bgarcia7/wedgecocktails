@@ -11,9 +11,9 @@ app = Flask(__name__)
 CORS(app)
 
 import openai
-openai.organization = "org-JoyTBJ8CFCC0eUSQnlLSHDxK"
-openai.api_key = "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"
-# openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.organization = os.environ.get('OPENAI_ORG')
+openai.api_key = os.environ.get('OPENAI_KEY')
+
 GENERATE_COCKTAIL_PROMPT_PREFIX = """
 
 Here is an example of a drink recipe in properly formatted json:
@@ -46,12 +46,6 @@ def recommend_cocktails():
     cdf = cdf.sort_values('ing_percentage', ascending=False)
     print('returning top cocktails', cdf.to_dict(orient='records')[:1])
     return {'cocktails':cdf.to_dict(orient='records')[:20]}
-
-# def custom_parser(x):
-#     s1 = x.split('name:')
-#     name = s1[0].strip().split(',')[0]
-#     ingredients = [x.strip()s1[1:]
-
 
 @app.route('/generate_cocktail', methods=['GET','POST'])
 def generate_cocktail():

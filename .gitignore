@@ -1,11 +1,11 @@
 // Web Application
-/node_modules/*
-.eslint*
-.next/*
-package-lock.json
+web-app/node_modules/*
+web-app/.eslint*
+web-app/.next/*
+web-app/package-lock.json
 
 // Data Application
-venv
-.ipynb*
+api/src/venv
+*.ipynb*
 *.png
 api/data/0_data_scraping/diffordsguide_ingredients/*

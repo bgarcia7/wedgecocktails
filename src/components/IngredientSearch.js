@@ -29,7 +29,8 @@ const IngredientSearch = () => {
     // const history = useHistory
 
     const getRecommendations = () => {
-        axios.post('https://1b9fgtrkz8.execute-api.us-west-2.amazonaws.com/dev/recommend_cocktails', {'ingredients': selectedIds})
+        // axios.post('https://1b9fgtrkz8.execute-api.us-west-2.amazonaws.com/dev/recommend_cocktails', {'ingredients': selectedIds})
+        axios.post('http://127.0.0.1:5000/recommend_cocktails', {'ingredients': selectedIds})
             .then(res => {
                 var savedResults = res.data.cocktails
                 setData(savedResults)
@@ -39,7 +40,7 @@ const IngredientSearch = () => {
 
     useEffect(() => {
         getRecommendations()
-        // console.log(data)
+        console.log(data)
     }, [selectedIds])
 
     useEffect(() => {
@@ -75,7 +76,7 @@ const IngredientSearch = () => {
                 return (
                 <div key={hit.objectId + "-hits-" + String(ix)} className={`flex flex-col bg-white justify-around h-40 sm:h-60 w-[45%] sm:w-[30%] md:w-[22%] lg:w-[15%] rounded-lg shadow-sm p-2 my-3 duration-150 ease-in hover:ease-out hover:-translate-y-0.5 hover:shadow-md hover:cursor-pointer ${selectedIds.includes(hit.objectID) ? "opacity-20 hover:opacity-40" : "opacity-100 hover:opacity-100"}`}
                 onClick={toggleIngredient(hit.objectID, hit)}>
-                    <img className="h-[60%] object-contain" src={'https://cocktail-ingredient-images.s3-us-west-2.amazonaws.com/' + hit.objectID + '.png'}/>
+                    <img className="h-[60%] object-contain" src={'https://wedgecocktail-ingredient-images.s3-us-west-2.amazonaws.com/' + hit.objectID + '.png'}/>
                     <p className="text-m sm:text-l leading-6 text-gray-500 text-center">
                         {hit.name}
                     </p>
@@ -88,36 +89,27 @@ const IngredientSearch = () => {
       
     // RECOMMENDATIONS LOGIC 
     let [data, setData] = useState([])
-    // const history = useHistory()
-    // const handleHome = () => {
-    //     console.log(results);
-    //     history.push('/')
-    // }
-
-    // let ingredients = window.location.search.split('?ingredients=')
-    // let refinedIngredients = ingredients[1].split('%2C')
-
 
 function arrayToString(array) {
     var string = '';
     for (var i = 0; i < array.length; i++) {
-        string += array[i].name + ' • ';
+        string += array[i].quantity + ' of ' + array[i].name + ' • ';
     }
-    return string.slice(0, -1);
+    return string.slice(0, -2);
 }
 
     const snapList = useRef(null);
     const lastSnapItem = useRef(null);
-    // const goToSnapItem = useScroll({ ref: snapList });
+    const goToSnapItem = useScroll({ ref: snapList });
     const { isDragging } = useDragToScroll({ ref: snapList, disable: false });
     
   return (
     <div className="max-w-full">
         <div> 
             { data.length ? 
-            <SnapList ref={snapList} className="mt-10">
+            <SnapList ref={snapList} tabIndex={0} className="mt-10">
             {data.map((cocktail, ix) => (
-            <SnapItem key={cocktail.name + "-recommendation-" + String(ix)} className="flex flex-col align-middle justify-top overflow-hidden bg-white h-[32vh] ring-1 ring-gray-100 rounded-lg shadow-lg w-[70%] sm:w-[25%] mt-1 mb-1 mr-2 ml-1 p-4 sm:mr-10 sm:p-8 rounded-lg shadow-sm duration-150 ease-in hover:ease-out hover:-translate-y-0.5 hover:shadow-md hover:cursor-pointer ">
+            <SnapItem key={cocktail.id + "-recommendation-" + String(ix)} className="flex flex-col align-middle justify-top overflow-hidden bg-white h-[62vh] ring-1 ring-gray-100 rounded-lg shadow-lg w-[70%] sm:w-[25%] mt-1 mb-1 mr-2 ml-1 p-4 sm:mr-10 sm:p-8 rounded-lg shadow-sm duration-150 ease-in hover:ease-out hover:-translate-y-0.5 hover:shadow-md hover:cursor-pointer ">
             {/* <div className="ring-1 bg-white rounded-l min-[45%] sm:w-[20%]"> */}
                   <div className="text-clip text-ellipsis flex flex-col align-center">
                         <div className="">
@@ -127,12 +119,15 @@ function arrayToString(array) {
                         <p className="text-sm">
                             {arrayToString(cocktail.ingredients)}
                         </p>
+                        <p className="text-sm">
+                            {cocktail.serving_container}
+                        </p>
                         {/* PERCENT OF INGREDIENT HITS AND INSTRUCTIONS */}
                             {/* <p margin="10px 0px 0px 0px;">{String(cocktail.ing_percentage * 100) + '% of ingredients available'}</p> */}
-                        {/* <div className="w-[33%]">
+                        <div className="w-[33%]">
                             <h2>Directions</h2>
                             <p margin="10px 0px; ">{cocktail.instructions}</p>
-                        </div> */}
+                        </div>
                     </div>
             {/* </div> */}
 
@@ -140,12 +135,12 @@ function arrayToString(array) {
 
             </SnapList> :
 
-        <SnapList className="mt-10">
+        <div className="flex flex-row mt-10">
             {['','',''].map((cocktail, ix) => (
-            <SnapItem key={'gray-holder' + String(ix)} className="flex flex-col align-middle justify-top overflow-hidden bg-[#fdfdfd] h-[32vh] ring-1 ring-gray-100 rounded-lg shadow-lg w-[70%] sm:w-[25%] mt-1 mb-1 mr-2 ml-1 p-4 sm:mr-10 sm:p-8 rounded-lg shadow-sm duration-150 ease-in hover:ease-out hover:-translate-y-0.5 hover:shadow-md hover:cursor-pointer ">
-            </SnapItem>))}
+            <div key={'gray-holder' + String(ix)} className="flex flex-col align-middle justify-top overflow-hidden bg-[#fdfdfd] h-[32vh] ring-1 ring-gray-100 rounded-lg shadow-lg w-[70%] sm:w-[25%] mt-1 mb-1 mr-2 ml-1 p-4 sm:mr-10 sm:p-8 rounded-lg shadow-sm duration-150 ease-in hover:ease-out hover:-translate-y-0.5 hover:shadow-md hover:cursor-pointer ">
+            </div>))}
 
-        </SnapList>}
+        </div>}
         </div>
         {/* <PrimaryButton onClick={getRecommendations} text="See Results"/> */}
 
@@ -153,22 +148,22 @@ function arrayToString(array) {
             {selectedIds.length ? 
                 <div className="flex flex-col flex-0 justify-start align-middle">
                  <span className="my-auto mt-6 text-xl sm:text-2xl leading-8 text-gray-600 tracking-tight font-normal">Your Pantry</span>
-                 <SnapList className="flex">
+                 <div className="flex">
                  {selectedIds.map((sid, ix) => {
                     let hit = ingredientsCache[sid]
                     return hit ? 
                         (
                             <div key={sid + "-pantry-" + String(ix)} onClick={toggleIngredient(hit.objectID, hit)}>
-                            <SnapItem className={`flex flex-col bg-white justify-around h-[50px] w-[50px] rounded-sm shadow-md p-2 my-3 ml-3 duration-150 ease-in hover:ease-out hover:-translate-y-0.5 hover:shadow-md hover:cursor-pointer`}
+                            <div className={`flex flex-col bg-white justify-around h-[50px] w-[50px] rounded-sm shadow-md p-2 my-3 ml-3 duration-150 ease-in hover:ease-out hover:-translate-y-0.5 hover:shadow-md hover:cursor-pointer`}
                             >
                                 <img className="h-[80%] object-contain" src={'https://cocktail-ingredient-images.s3-us-west-2.amazonaws.com/' + hit.objectID + '.png'}/>
-                            </SnapItem>
+                            </div>
                             </div>
                         ) : null
                  }
             )}
 
-                 </SnapList>
+                 </div>
                 </div>
                  : 
                 <>

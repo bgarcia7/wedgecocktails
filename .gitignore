@@ -7,3 +7,5 @@ package-lock.json
 // Data Application
 venv
 .ipynb*
+*.png
+api/data/0_data_scraping/diffordsguide_ingredients/*

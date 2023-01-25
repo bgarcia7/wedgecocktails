@@ -1,9 +1,11 @@
 {
-    "dev": {
+    "production": {
         "app_function": "app.app",
-        "profile_name": "personal",
-        "project_name": "api",
-        "runtime": "python3.7",
-        "s3_bucket": "zappa-9b51n8l0k"
+        "profile_name": "zappa",
+        "project_name": "src",
+        "runtime": "python3.9",
+        "s3_bucket": "zappa-8chl36kr6",
+        "slim_handler": false,
+        "aws_region": "us-west-2"
     }
 }

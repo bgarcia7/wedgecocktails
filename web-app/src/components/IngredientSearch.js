@@ -30,8 +30,8 @@ const IngredientSearch = ({initialData}) => {
     const [selectedIds, setSelectedIds] = useState([])
 
     const generateCocktail = () => {
-        // axios.post('https://vjj6xrqlv1.execute-api.us-west-2.amazonaws.com/production/generate_cocktail', {'ingredients': selectedIds})
-        axios.post('http://127.0.0.1:5000/generate_cocktail', {'ingredients': selectedIds})
+        axios.post('https://vjj6xrqlv1.execute-api.us-west-2.amazonaws.com/production/generate_cocktail', {'ingredients': selectedIds})
+        // axios.post('http://127.0.0.1:5000/generate_cocktail', {'ingredients': selectedIds})
 
             .then(res => {
                 var savedResults = res.data.cocktails
@@ -42,8 +42,8 @@ const IngredientSearch = ({initialData}) => {
 
 
     const getRecommendations = () => {
-        // axios.post('https://vjj6xrqlv1.execute-api.us-west-2.amazonaws.com/production/recommend_cocktails', {'ingredients': selectedIds})
-        axios.post('http://127.0.0.1:5000/recommend_cocktails', {'ingredients': selectedIds})
+        axios.post('https://vjj6xrqlv1.execute-api.us-west-2.amazonaws.com/production/recommend_cocktails', {'ingredients': selectedIds})
+        // axios.post('http://127.0.0.1:5000/recommend_cocktails', {'ingredients': selectedIds})
             .then(res => {
                 var savedResults = res.data.cocktails
                 setData(savedResults)

@@ -6,7 +6,7 @@ web-app/package-lock.json
 
 // Data Application
 api/src/venv
-api/src/zappa_settings
+api/src/zappa_settings.json
 *.ipynb*
 *.png
 api/data/0_data_scraping/diffordsguide_ingredients/*

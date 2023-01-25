@@ -9,7 +9,7 @@
         "aws_region": "us-west-2",
         "environment_variables": {
             "OPENAI_ORG": "org-JoyTBJ8CFCC0eUSQnlLSHDxK",
-            "OPENAI_KEY": "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"
+            "OPENAI_KEY": "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"
           }
     }
 }

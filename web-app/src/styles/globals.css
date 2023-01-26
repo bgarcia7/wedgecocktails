@@ -19,6 +19,10 @@
     border:1px solid #e2e2e2;
 }
 
+.search-panel__results{
+    overflow:hidden;
+}
+
 .ais-SearchBox-submit {
     display:none;
 }

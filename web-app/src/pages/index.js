@@ -1,8 +1,9 @@
 import Head from 'next/head'
 import axios from 'axios'
 import Image from 'next/image'
-import { Home, Navbar }  from '../components'
+import { Home, Navbar, IngredientSearch }  from '../components'
 import { Inter } from '@next/font/google'
+import { styles } from '../styles'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,10 +18,11 @@ function Main({initialData}) {
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css"/>
       </Head>
       <main>
-        <Navbar/>
-        <Home initialData={initialData}/>
-        <div className="w-full px-10 h-[400px] flex align-items-center justify-center">
-          TESTING
+        {/* <Navbar/> */}
+        {/* <Home initialData={initialData}/> */}
+        <div className={`${styles.xPadding} h-[100vh] overflow-none`}>
+        <IngredientSearch initialData={initialData}/>
+
         </div>
       </main>
     </>

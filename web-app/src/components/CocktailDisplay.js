@@ -35,10 +35,15 @@ const CocktailDisplay = ({ cocktails, generateCocktail, genCocktail}) => {
                     </div>
                 </div>: null}
 
-            { cocktails?.length ?  <div className="h-[100%] flex flex-row flex-wrap flex-grow-0 overflow-scroll justify-center">
+            { cocktails?.length ?  <div className="h-[100%] flex flex-row flex-wrap flex-grow-0 overflow-scroll justify-center pb-16">
                 {cocktails.map((cocktail, ix) => (
-                <div className="flex flex-col align-middle justify-top overflow-hidden bg-white h-[max-30vh] ring-1 ring-gray-100 rounded-lg shadow-lg w-[45%] sm:w-[25%] m-2 p-4 pt-1 rounded-lg shadow-sm duration-150 ease-in hover:ease-out hover:-translate-y-0.5 hover:shadow-md hover:cursor-pointer">
+                <div className="flex flex-col align-middle justify-top overflow-hidden bg-white h-[max-30vh] ring-1 ring-gray-100 rounded-lg shadow-lg w-[45%] sm:w-[25%] m-2 p-4 rounded-lg shadow-sm duration-150 ease-in hover:ease-out hover:-translate-y-0.5 hover:shadow-md hover:cursor-pointer">
                     <div className="text-clip flex flex-col align-center">
+                            <div className="flex justify-end">
+                                <p className={`text-center px-2 rounded-xl ${cocktail.ing_percentage === 1 ? 'bg-green-300 text-green-700' : (cocktail.ing_percentage > 0.5 ? 'bg-yellow-300 text-yellow-700' : 'bg-red-300 text-red-700')}`}>
+                                {cocktail.ing_hits.length} of {cocktail.ingredients.length}
+                            </p>
+                            </div>
                             <div className="h-[25vh]">
                                 <img className="object-contain" src={cocktail.image_url}/>
                             </div>

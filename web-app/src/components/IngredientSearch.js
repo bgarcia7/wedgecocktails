@@ -117,7 +117,7 @@ const IngredientSearch = ({initialData}) => {
                     className={`z-10 hover:cursor-pointer hover:shadow-lg hover:-translate-y-0.5 flex-col justify-center align-middle absolute top-[2vh] shadow-md duration-150 ${cocktailDrawerOpen ? "drop-shadow-[35px_35px_35px_rgba(0,0,0,0.25)] w-[100%] h-[98vh] rounded-10xl bg-white ease-out right-0 overflow-hidden" : "absolute t-5 r-5 bg-white py-2 px-4 right-[2vh] rounded-xl ease-in"}`}>
                         <div                    
                         onClick={() => setCocktailDrawerOpen(!cocktailDrawerOpen)}
-                        className={`${cocktailDrawerOpen ? 'flex justify-end' : 'm-auto'} transition-none text-sm font-normal leading-8`}>
+                        className={`${cocktailDrawerOpen ? 'flex justify-end' : 'm-auto'} transition-none leading-8 tracking-tight text-sm rounded-sm font-bold p-1 px-2 mr-2`}>
                             {cocktailDrawerOpen ? <X className="m-3" size={20}/> : <p>see cocktails</p>}
                         </div>
                         {cocktailDrawerOpen ?

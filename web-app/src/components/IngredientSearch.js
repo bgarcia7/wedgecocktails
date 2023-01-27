@@ -16,14 +16,15 @@ const searchClient = algoliasearch(
     'XDZGBI1FCU',
     'accb47948bbc928311f5b97d9c18ea5a'
 );
+import { X } from 'react-feather'
 // const index = searchClient.initIndex('ingredients');
 
 // TODO -
 // WEB-APP
 // [x] make selected ingredients disappear from list
-// [ ] put cocktail recommendations on separate next page with back + generate ai cocktail button
+// [x] put cocktail recommendations on separate next page with back + generate ai cocktail button
 // [ ] create cocktail quickview 
-// [ ] make ingredient selection home page
+// [x] make ingredient selection home page
 // DATA
 // [ ] manually let order
 
@@ -127,8 +128,9 @@ const IngredientSearch = ({initialData}) => {
                         /> : null}
                 </div>
                 <div className="flex flex-row justify-middle align-start">
-                    <span onClick={() => setSelectedIds([])} className="ml-3 my-auto text-sm sm:text-2xl leading-8 text-gray-500 tracking-tight font-bold pr-1 mr-2 hover:cursor-pointer hover:text-red-500">x</span>
+                    
                     <span className="my-auto text-xl sm:text-2xl leading-8 text-gray-600 tracking-tight font-normal">Your Pantry</span>
+                    <span onClick={() => setSelectedIds([])} className="ml-3 my-auto text-xs text-gray-400 tracking-tight ring-1 ring-gray-100 bg-gray-100 rounded-sm font-bold p-1 px-2 mr-2 shadow-md hover:cursor-pointer hover:shadow-none">clear</span>
                 </div>
                  <div className="flex">
                  {selectedIds.map((sid, ix) => {
@@ -136,10 +138,13 @@ const IngredientSearch = ({initialData}) => {
                     return hit ? 
                         (
                             <div key={sid + "-pantry-" + String(ix)} onClick={toggleIngredient(hit.objectID, hit)}>
-                            <div className={`flex flex-col bg-white justify-around h-[50px] w-[50px] rounded-sm shadow-md p-2 my-3 ml-3 duration-150 ease-in hover:ease-out hover:-translate-y-0.5 hover:shadow-md hover:cursor-pointer`}
-                            >
-                                <img className="h-[80%] object-contain" src={'https://cocktail-ingredient-images.s3-us-west-2.amazonaws.com/' + hit.objectID + '.png'}/>
-                            </div>
+                                <div className={`relative flex flex-col bg-white justify-around h-[50px] w-[50px] rounded-sm shadow-md p-2 my-3 ml-3 duration-150 ease-in hover:ease-out hover:-translate-y-0.5 hover:shadow-md hover:cursor-pointer`}
+                                >
+                                    <img className="h-[80%] object-contain" src={'https://wedgecocktail-ingredient-images.s3-us-west-2.amazonaws.com/' + hit.objectID + '.png'}/>
+                                    <div className="absolute top-0 right-1">
+                                        <X size={10}/>
+                                    </div>
+                                </div>
                             </div>
                         ) : null
                  }
@@ -163,7 +168,7 @@ const IngredientSearch = ({initialData}) => {
                     }}
                 />
                 <Configure hitsPerPage={60} />
-                <div className="overflow-scroll">
+                <div className="overflow-scroll flex-1">
                     <CustomHits />
                     </div>
         </InstantSearch>

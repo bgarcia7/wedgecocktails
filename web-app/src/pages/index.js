@@ -16,6 +16,7 @@ function Main({initialData}) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css"/>
+        <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
       </Head>
       <main>
         {/* <Navbar/> */}
@@ -25,6 +26,7 @@ function Main({initialData}) {
 
         </div>
       </main>
+      <script>feather.replace()</script>
     </>
   )
 }

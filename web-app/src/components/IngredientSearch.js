@@ -36,8 +36,8 @@ const IngredientSearch = ({initialData}) => {
     const [selectedIds, setSelectedIds] = useState([])
 
     const generateCocktail = (ingredients) => {
-        axios.post('https://vjj6xrqlv1.execute-api.us-west-2.amazonaws.com/production/generate_cocktail', {'ingredients': ingredients})
-        // axios.post('http://127.0.0.1:5000/generate_cocktail', {'ingredients': selectedIds})
+//        axios.post('https://vjj6xrqlv1.execute-api.us-west-2.amazonaws.com/production/generate_cocktail', {'ingredients': ingredients})
+         axios.post('http://127.0.0.1:5000/generate_cocktail', {'ingredients': selectedIds})
             .then(res => {
                 var savedResults = res.data.cocktails
                 setGenCocktail(savedResults)
@@ -114,11 +114,11 @@ const IngredientSearch = ({initialData}) => {
             {selectedIds.length ? 
                 <div className="flex flex-col flex-0 justify-start align-middle">
                 <div 
-                    className={`z-10 hover:cursor-pointer hover:shadow-lg hover:-translate-y-0.5 flex-col justify-center align-middle absolute top-[2vh] shadow-md duration-150 ${cocktailDrawerOpen ? "drop-shadow-[35px_35px_35px_rgba(0,0,0,0.25)] w-[100%] h-[98vh] rounded-10xl bg-white ease-out right-0 overflow-hidden" : "absolute t-5 r-5 bg-white py-2 px-4 right-[2vh] rounded-xl ease-in"}`}>
+                    className={`z-10 hover:cursor-pointer hover:shadow-lg hover:-translate-y-0.5 flex-col justify-center align-middle absolute top-[2vh] shadow-md duration-150 ${cocktailDrawerOpen ? "drop-shadow-[35px_35px_35px_rgba(0,0,0,0.25)] w-[100%] h-[98vh] rounded-10xl bg-white ease-out right-0 overflow-hidden" : "flex w-[90%] bottom-[1vh] top-[93vh] hover:bg-indigo-700 bg-indigo-600 rounded-xl ease-in"}`}>
                         <div                    
                         onClick={() => setCocktailDrawerOpen(!cocktailDrawerOpen)}
-                        className={`${cocktailDrawerOpen ? 'flex justify-end' : 'm-auto'} transition-none leading-8 tracking-tight text-sm rounded-sm font-bold p-1 px-2 mr-2`}>
-                            {cocktailDrawerOpen ? <X className="m-3" size={20}/> : <p>see cocktails</p>}
+                        className={`${cocktailDrawerOpen ? 'flex justify-end' : 'justify-center'} transition-none leading-8 tracking-tight text-sm rounded-sm font-bold`}>
+                            {cocktailDrawerOpen ? <X className="m-3 justify-end" size={20}/> : <p className="text-white text-center">SEE COCKTAILS</p>}
                         </div>
                         {cocktailDrawerOpen ?
                         <CocktailDisplay 

@@ -47,8 +47,8 @@ const IngredientSearch = ({initialData}) => {
 
 
     const getRecommendations = () => {
-        axios.post('https://vjj6xrqlv1.execute-api.us-west-2.amazonaws.com/production/recommend_cocktails', {'ingredients': selectedIds})
-        // axios.post('http://127.0.0.1:5000/recommend_cocktails', {'ingredients': selectedIds})
+        // axios.post('https://vjj6xrqlv1.execute-api.us-west-2.amazonaws.com/production/recommend_cocktails', {'ingredients': selectedIds})
+        axios.post('http://127.0.0.1:5000/recommend_cocktails', {'ingredients': selectedIds})
             .then(res => {
                 var savedResults = res.data.cocktails
                 setCocktails(savedResults)
@@ -118,13 +118,14 @@ const IngredientSearch = ({initialData}) => {
                         <div                    
                         onClick={() => setCocktailDrawerOpen(!cocktailDrawerOpen)}
                         className={`${cocktailDrawerOpen ? 'flex justify-end' : 'justify-center'} transition-none leading-8 tracking-tight text-sm rounded-sm font-bold`}>
-                            {cocktailDrawerOpen ? <X className="m-3 justify-end" size={20}/> : <p className="text-white text-center">SEE COCKTAILS</p>}
+                            {cocktailDrawerOpen ? null : <p className="text-white text-center">SEE COCKTAILS</p>}
                         </div>
                         {cocktailDrawerOpen ?
                         <CocktailDisplay 
                             cocktails={cocktails}
                             generateCocktail={() => generateCocktail(selectedIds)}
                             genCocktail={genCocktail}
+                            closeCocktailDrawer={() => setCocktailDrawerOpen(!cocktailDrawerOpen)}
                         /> : null}
                 </div>
                 <div className="flex flex-row justify-middle align-start">

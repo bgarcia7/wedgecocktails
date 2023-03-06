@@ -23,8 +23,12 @@ import { X } from 'react-feather'
 // WEB-APP
 // [x] make selected ingredients disappear from list
 // [x] put cocktail recommendations on separate next page with back + generate ai cocktail button
-// [ ] create cocktail quickview 
+// [x] create cocktail quickview 
 // [x] make ingredient selection home page
+// P1
+// [ ] ingredient select on enter with direct hit
+// [ ] hook up openAI cocktail generation
+// [ ] redeploy zappa
 // DATA
 // [ ] manually let order
 

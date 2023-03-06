@@ -2,7 +2,7 @@ import React from 'react'
 
 const CocktailPage = ({cocktail}) => {
   return (
-    <div key={cocktail.name} className="flex flex-col align-middle bg-white w-[100%] sm:w-[30%] p-3 duration-150 ease-in ">
+    <div key={cocktail.name} className="flex flex-col align-middle bg-white w-[100%] sm:w-[30%] p-3 duration-150 ease-in overflow-scroll">
             <div className="flex mb-3">
                 <p className={`text-center px-2 rounded-xl ${cocktail.ing_percentage === 1 ? 'bg-green-300 text-green-700' : (cocktail.ing_percentage > 0.5 ? 'bg-yellow-300 text-yellow-700' : 'bg-red-300 text-red-700')}`}>
                     {cocktail.ing_hits.length} of {cocktail.ingredients.length} ingredients available

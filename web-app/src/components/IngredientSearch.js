@@ -25,10 +25,15 @@ import { X } from 'react-feather'
 // [x] put cocktail recommendations on separate next page with back + generate ai cocktail button
 // [x] create cocktail quickview 
 // [x] make ingredient selection home page
-// P1
-// [ ] ingredient select on enter with direct hit
-// [ ] hook up openAI cocktail generation
-// [ ] redeploy zappa
+// [ ] redeploy zappa and hook up to prod back-end (20 min)
+// [ ] hook up openAI cocktail generation (20 min)
+// [ ] ingredient select on enter with direct hit (10 min)
+// [ ] style cocktail page (+desktop) (20 min)
+// [ ] full cocktail counts (5 min)
+// [ ] gradient bg implementation (20 min)
+// [ ] Desktop cleanup (cocktail list, see cocktails CTA) (20 min)
+// [ ] refactor cocktail page into route (TBD)
+// [ ] add route support for ingredient search page (1 hour)
 // DATA
 // [ ] manually let order
 
@@ -40,8 +45,8 @@ const IngredientSearch = ({initialData}) => {
     const [selectedIds, setSelectedIds] = useState([])
 
     const generateCocktail = (ingredients) => {
-//        axios.post('https://vjj6xrqlv1.execute-api.us-west-2.amazonaws.com/production/generate_cocktail', {'ingredients': ingredients})
-         axios.post('http://127.0.0.1:5000/generate_cocktail', {'ingredients': selectedIds})
+       axios.post('https://vjj6xrqlv1.execute-api.us-west-2.amazonaws.com/production/generate_cocktail', {'ingredients': ingredients})
+        //  axios.post('http://127.0.0.1:5000/generate_cocktail', {'ingredients': selectedIds})
             .then(res => {
                 var savedResults = res.data.cocktails
                 setGenCocktail(savedResults)
@@ -51,8 +56,8 @@ const IngredientSearch = ({initialData}) => {
 
 
     const getRecommendations = () => {
-        // axios.post('https://vjj6xrqlv1.execute-api.us-west-2.amazonaws.com/production/recommend_cocktails', {'ingredients': selectedIds})
-        axios.post('http://127.0.0.1:5000/recommend_cocktails', {'ingredients': selectedIds})
+        axios.post('https://vjj6xrqlv1.execute-api.us-west-2.amazonaws.com/production/recommend_cocktails', {'ingredients': selectedIds})
+        // axios.post('http://127.0.0.1:5000/recommend_cocktails', {'ingredients': selectedIds})
             .then(res => {
                 var savedResults = res.data.cocktails
                 setCocktails(savedResults)

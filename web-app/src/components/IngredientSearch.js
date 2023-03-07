@@ -27,11 +27,11 @@ import { X } from 'react-feather'
 // [x] make ingredient selection home page
 // [x] redeploy zappa and hook up to prod back-end (20 min, 14 min)
 // [x] hook up openAI cocktail generation (20 min)
-// [ ] ingredient select on enter with direct hit (10 min)
+// [ ] Desktop cleanup (cocktail list, see cocktails CTA) (20 min)
+// [HOLD] ingredient select on enter with direct hit (10 min)
 // [ ] style cocktail page (+desktop) (20 min)
 // [ ] full cocktail counts (5 min)
 // [ ] gradient bg implementation (20 min)
-// [ ] Desktop cleanup (cocktail list, see cocktails CTA) (20 min)
 // [ ] refactor cocktail page into route (TBD)
 // [ ] add route support for ingredient search page (1 hour)
 // DATA
@@ -171,10 +171,10 @@ const IngredientSearch = ({initialData}) => {
         {/* INGREDIENT SEARCH */}
         <InstantSearch className="overflow-hidden" searchClient={searchClient} indexName="ingredients" >
                 <SearchBox
-                    className="searchbox px-2 py-4 rounded-lg sm:w-[100%] border-gray-300 border-spacing-1 ease-in-out focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    className="searchbox px-2 py-4 rounded-lg sm:w-[100%] border-gray-300 border-spacing-1 ease-in-out focus:border-indigo-500 focus:ring-indigo-500 sm:text-xs"
                     showReset={true}
                     translations={{
-                        placeholder: '',
+                        placeholder: 'liquors, fruit, sodas, etc',
                     }}
                 />
                 <Configure hitsPerPage={60} />

@@ -10,12 +10,9 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-# import openai
-# openai.organization = os.environ.get('OPENAI_ORG')
-# openai.api_key = os.environ.get('OPENAI_KEY')
 import openai
-openai.organization = 'org-JoyTBJ8CFCC0eUSQnlLSHDxK'
-openai.api_key = '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'
+openai.organization = os.environ.get('OPENAI_ORG')
+openai.api_key = os.environ.get('OPENAI_KEY')
 
 GENERATE_COCKTAIL_PROMPT_PREFIX = """
 

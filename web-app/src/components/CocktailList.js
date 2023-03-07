@@ -16,7 +16,7 @@ const CocktailList = ({cocktails, generateCocktail, genCocktail, setActiveCockta
         <div className="h-[100%] flex flex-row flex-wrap flex-grow-0 overflow-scroll justify-center pb-16">
             {/* Generate Cocktail Button */}
             <button
-            className={`mb-2 text-white ring-indigo-600 hover:bg-indigo-700 bg-indigo-600 inline-block rounded-lg px-4 py-1.5 text-base font-semibold leading-7 shadow-sm ring-1 hover:cursor-pointer w-[95%]`}
+            className={`mb-2 text-white ring-indigo-600 hover:bg-indigo-700 bg-indigo-600 inline-block rounded-lg px-4 py-1.5 text-base font-semibold leading-7 shadow-sm ring-1 hover:cursor-pointer w-[95%] sm:w-[50%] sm:mx-[25%] sm:mt-12 sm:mb-8`}
             onClick={generateCocktail}
             >
                 Generate Cocktail with OpenAI
@@ -60,7 +60,7 @@ const CocktailList = ({cocktails, generateCocktail, genCocktail, setActiveCockta
                             </p>
                             </div>
                             <div className="h-[25vh]">
-                                <img className="object-contain" src={cocktail.image_url}/>
+                                <img className="mx-auto h-[25vh] object-contain" src={cocktail.image_url}/>
                             </div>
                                 <p>{cocktail.name.replace('\\\'', '\'')}</p>
                             <p className="text-xs my-2">

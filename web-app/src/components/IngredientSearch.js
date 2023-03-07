@@ -121,12 +121,12 @@ const IngredientSearch = ({initialData}) => {
         {/* HEADER COMPONENT */}
         <div className={`ease-out duration-700 ${selectedIds.length ? "text-md pt-5" : "text-[3.5rem] font-bold sm:text-5xl tracking-tight pt-20 pb-0"}`}>
             {selectedIds.length ? 
-                <div className="flex flex-col flex-0 justify-start align-middle">
-                <div 
-                    className={`z-10 hover:cursor-pointer hover:shadow-lg hover:-translate-y-0.5 flex-col justify-center align-middle absolute top-[2vh] shadow-md duration-150 ${cocktailDrawerOpen ? "drop-shadow-[35px_35px_35px_rgba(0,0,0,0.25)] w-[100%] h-[98vh] rounded-10xl bg-white ease-out right-0 overflow-hidden" : "flex w-[90%] bottom-[1vh] top-[93vh] hover:bg-indigo-700 bg-indigo-600 rounded-xl ease-in"}`}>
+                <div className="flex flex-col justify-center align-middle">
+                    <div 
+                    className={`z-10 hover:cursor-pointer hover:shadow-lg hover:-translate-y-0.5 flex-col justify-center align-middle absolute top-[2vh] shadow-md duration-150 ${cocktailDrawerOpen ? "drop-shadow-[35px_35px_35px_rgba(0,0,0,0.25)] w-[100%] h-[98vh] rounded-10xl bg-white ease-out right-0 overflow-hidden" : "flex justify-center align-middle w-[90%] sm:w-[30%] sm:left-[35%] bottom-[1vh] top-[93vh] hover:bg-indigo-700 bg-indigo-600 rounded-xl ease-in"}`}>
                         <div                    
                         onClick={() => setCocktailDrawerOpen(!cocktailDrawerOpen)}
-                        className={`${cocktailDrawerOpen ? 'flex justify-end' : 'justify-center'} transition-none leading-8 tracking-tight text-sm rounded-sm font-bold`}>
+                        className={`justify-center transition-none leading-8 tracking-tight text-sm rounded-sm font-bold`}>
                             {cocktailDrawerOpen ? null : <p className="text-white text-center">SEE COCKTAILS</p>}
                         </div>
                         {cocktailDrawerOpen ?
@@ -136,13 +136,13 @@ const IngredientSearch = ({initialData}) => {
                             genCocktail={genCocktail}
                             closeCocktailDrawer={() => setCocktailDrawerOpen(!cocktailDrawerOpen)}
                         /> : null}
-                </div>
-                <div className="flex flex-row justify-middle align-start">
+                    </div>
+                    <div className="flex flex-row justify-middle align-start">
                     
-                    <span className="my-auto text-xl sm:text-2xl leading-8 text-gray-600 tracking-tight font-normal">Your Pantry</span>
-                    <span onClick={() => setSelectedIds([])} className="ml-3 my-auto text-xs text-gray-400 tracking-tight ring-1 ring-gray-100 bg-gray-100 rounded-sm font-bold p-1 px-2 mr-2 shadow-md hover:cursor-pointer hover:shadow-none">clear</span>
-                </div>
-                 <div className="flex">
+                        <span className="my-auto text-xl sm:text-2xl leading-8 text-gray-600 tracking-tight font-normal">Your Pantry</span>
+                        <span onClick={() => setSelectedIds([])} className="ml-3 my-auto text-xs text-gray-400 tracking-tight ring-1 ring-gray-100 bg-gray-100 rounded-sm font-bold p-1 px-2 mr-2 shadow-md hover:cursor-pointer hover:shadow-none">clear</span>
+                    </div>
+                <div className="flex">
                  {selectedIds.map((sid, ix) => {
                     let hit = ingredientsCache[sid]
                     return hit ? 
@@ -157,11 +157,10 @@ const IngredientSearch = ({initialData}) => {
                                 </div>
                             </div>
                         ) : null
-                 }
-            )}
-
-                 </div>
+                    }  
+                    )}
                 </div>
+            </div>
                  : 
                 <>
                     <h1>What's in <br/><span className="italic">your</span> Pantry?</h1>

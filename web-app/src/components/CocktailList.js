@@ -8,7 +8,7 @@ function arrayToString(array, quantity=false) {
     return string.slice(0, -2);
 }
 
-const CocktailList = ({cocktails, generateCocktail, genCocktail, setActiveCocktailID}) => {
+const CocktailList = ({cocktails, generateCocktail, genCocktail, setActiveCocktailID, genIsLoading}) => {
     console.log('generated cocktails', genCocktail)
   return (
     <>
@@ -16,10 +16,20 @@ const CocktailList = ({cocktails, generateCocktail, genCocktail, setActiveCockta
         <div className="h-[100%] flex flex-row flex-wrap flex-grow-0 overflow-scroll justify-center pb-16">
             {/* Generate Cocktail Button */}
             <button
-            className={`mb-2 text-white ring-indigo-600 hover:bg-indigo-700 bg-indigo-600 inline-block rounded-lg px-4 py-1.5 text-base font-semibold leading-7 shadow-sm ring-1 hover:cursor-pointer w-[95%] sm:w-[50%] sm:mx-[25%] sm:mt-12 sm:mb-8`}
+            className={`mb-2 text-white ring-indigo-600 hover:bg-indigo-700 bg-indigo-600 inline-block rounded-lg px-4 py-1.5 text-base font-semibold leading-7 shadow-sm ring-1 hover:cursor-pointer w-[95%] sm:w-[40%] sm:mx-[25%] sm:mt-12 sm:mb-8`}
             onClick={generateCocktail}
             >
-                Generate Cocktail with OpenAI
+                {genIsLoading ? <>
+                    <div class="flex items-center justify-center">
+                        <div
+                            className="inline-block h-6 w-6 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                            role="status">
+                            <span
+                            className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)] bg-indigo-700">Loading...</span>
+                        </div>
+                        &nbsp;&nbsp;shaking something up... 
+                    </div>
+                </> : "Generate Cocktail with OpenAI"}
             </button>
             {genCocktail?.length ?
                 <div key={genCocktail[0].name} className="flex flex-col align-middle bg-white w-[100%] sm:w-[80%] duration-150 ease-in ring-1 ring-gray-100 m-2 p-6 sm:p-8 rounded-lg shadow-sm duration-150 ease-in hover:ease-out hover:-translate-y-0.5 hover:shadow-md hover:cursor-pointer">

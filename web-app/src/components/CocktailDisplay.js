@@ -6,7 +6,7 @@ import CocktailPage from './CocktailPage'
 import { BGGradients } from './'
 import { X } from 'react-feather'
 
-const CocktailDisplay = ({ cocktails, generateCocktail, genCocktail, closeCocktailDrawer}) => {
+const CocktailDisplay = ({ cocktails, generateCocktail, genCocktail, genIsLoading, closeCocktailDrawer}) => {
     let [activeCocktailID, setActiveCocktailID] = useState(null)
 
     return (
@@ -26,6 +26,7 @@ const CocktailDisplay = ({ cocktails, generateCocktail, genCocktail, closeCockta
                     cocktails={cocktails}
                     generateCocktail={generateCocktail}
                     genCocktail={genCocktail}
+                    genIsLoading={genIsLoading}
                     setActiveCocktailID={setActiveCocktailID}
                 />
             }

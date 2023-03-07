@@ -42,6 +42,7 @@ const IngredientSearch = ({initialData}) => {
     let [cocktails, setCocktails] = useState(initialData)
     let [cocktailStats, setCocktailStats] = useState(initialData)
     let [genCocktail, setGenCocktail] = useState([])
+    let [genIsLoading, setGenIsLoading] = useState(false)
     let [cocktailDrawerOpen, setCocktailDrawerOpen] = useState(false)
     const [ingredientsCache, setIngredientsCache] = useState({})
     const [selectedIds, setSelectedIds] = useState([])
@@ -61,13 +62,18 @@ const IngredientSearch = ({initialData}) => {
     }
 
     const generateCocktail = (ingredients) => {
-       axios.post('https://vjj6xrqlv1.execute-api.us-west-2.amazonaws.com/production/generate_cocktail', {'ingredients': ingredients})
+        setGenIsLoading(true);
+        axios.post('https://vjj6xrqlv1.execute-api.us-west-2.amazonaws.com/production/generate_cocktail', {'ingredients': ingredients})
         //  axios.post('http://127.0.0.1:5000/generate_cocktail', {'ingredients': selectedIds})
             .then(res => {
                 var savedResults = res.data.cocktails
                 setGenCocktail(savedResults)
+                setGenIsLoading(false);
             })
-            .catch(err => {console.log(err)})
+            .catch(err => {
+                console.log(err)
+                setGenIsLoading(false);
+            })
         }
 
 
@@ -88,11 +94,11 @@ const IngredientSearch = ({initialData}) => {
     }, [selectedIds])
 
 
-    useEffect(() => {
-        let currentUrlParams = new URLSearchParams(window.location.search);
-        currentUrlParams.set('ingredients', selectedIds);
-        selectedIds.length ? window.history.replaceState(null, null, "/?" + currentUrlParams.toString()) : null;
-    }, [selectedIds])
+    // useEffect(() => {
+    //     let currentUrlParams = new URLSearchParams(window.location.search);
+    //     currentUrlParams.set('ingredients', selectedIds);
+    //     selectedIds.length ? window.history.replaceState(null, null, "/?" + currentUrlParams.toString()) : null;
+    // }, [selectedIds])
     
     const toggleIngredient = (objectID, hit) => {
         return () => {
@@ -155,6 +161,7 @@ const IngredientSearch = ({initialData}) => {
                             cocktails={cocktails}
                             generateCocktail={() => generateCocktail(selectedIds)}
                             genCocktail={genCocktail}
+                            genIsLoading={genIsLoading}
                             closeCocktailDrawer={() => setCocktailDrawerOpen(!cocktailDrawerOpen)}
                         /> : null}
                     </div>
@@ -182,14 +189,14 @@ const IngredientSearch = ({initialData}) => {
                         )}
                     </div>
                 </div> : <>
-                    <h1>What's in <br/><span className="italic">your</span> Pantry?</h1>
-                    <p className="mt-6 text-xl sm:text-2xl leading-8 text-gray-600 tracking-tight font-normal ">Select whatever ingredients you have and explore what you can make.</p>
+                    <h1 className="md:text-6xl mb-8 md:text-center">What's in <span className="italic">your</span> Pantry? 🍋</h1>
+                    <p className="md:text-center mb-16 text-xl sm:text-2xl leading-8 text-gray-600 tracking-tight font-normal ">Select whatever ingredients you have and explore what you can make</p>
                 </>}
         </div>
         {/* INGREDIENT SEARCH */}
         <InstantSearch className="overflow-hidden" searchClient={searchClient} indexName="ingredients" >
                 <SearchBox
-                    className="searchbox px-2 py-4 rounded-lg sm:w-[100%] border-gray-300 border-spacing-1 ease-in-out focus:border-indigo-500 focus:ring-indigo-500 sm:text-xs"
+                    className="searchbox py-4 rounded-lg sm:w-[100%] border-gray-300 border-spacing-1 ease-in-out focus:border-indigo-500 focus:ring-indigo-500 sm:text-xs"
                     showReset={true}
                     translations={{
                         placeholder: 'liquors, fruit, sodas, etc',

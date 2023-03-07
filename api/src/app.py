@@ -44,7 +44,7 @@ def recommend_cocktails():
     cdf['ing_percentage'] = cdf.ing_hits.map(lambda x: float(len(x))) / cdf.num_ingredients
     cdf['ing_percentage'] = cdf.ing_percentage.map(lambda x: int(x*100)/100.0)
     cdf = cdf.sort_values('ing_percentage', ascending=False)
-    return {'cocktails':cdf.to_dict(orient='records')[:20]}
+    return {'cocktails':cdf.to_dict(orient='records')[:30]}
 
 @app.route('/generate_cocktail', methods=['GET','POST'])
 def generate_cocktail():

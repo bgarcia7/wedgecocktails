@@ -136,7 +136,7 @@ const IngredientSearch = ({initialData}) => {
     <div className="flex flex-col justify-center overflow-hidden h-[100vh] max-h-[100vh]">
         <BGGradients/> 
         {/* HEADER COMPONENT */}
-        <div className={`ease-out duration-700 ${selectedIds.length ? "text-md pt-5" : "text-[3.5rem] font-bold sm:text-5xl tracking-tight pt-20 pb-0"}`}>
+        <div className={`ease-out duration-700 ${selectedIds.length ? "text-md pt-5" : "text-[3.5rem] font-bold sm:text-5xl tracking-tight pt-16 sm:pt-20 pb-0"}`}>
             {selectedIds.length ? 
                 <div className="flex flex-col justify-center align-middle">
                     <div 
@@ -189,8 +189,8 @@ const IngredientSearch = ({initialData}) => {
                         )}
                     </div>
                 </div> : <>
-                    <h1 className="md:text-6xl mb-8 md:text-center">What's in <span className="italic">your</span> Pantry? 🍋</h1>
-                    <p className="md:text-center mb-16 text-xl sm:text-2xl leading-8 text-gray-600 tracking-tight font-normal ">Select whatever ingredients you have and explore what you can make</p>
+                    <h1 className="text-[54px] mb-4 md:text-6xl sm:mb-8 md:text-center leading-tight">What's in <span className="italic">your</span> Pantry?</h1>
+                    <p className="md:text-center mb-8 text-xl sm:mb-16 sm:text-2xl leading-8 text-gray-600 tracking-tight font-normal ">🍋 Select whatever ingredients you have and explore what you can make</p>
                 </>}
         </div>
         {/* INGREDIENT SEARCH */}

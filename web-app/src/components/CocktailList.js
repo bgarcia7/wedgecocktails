@@ -13,10 +13,10 @@ const CocktailList = ({cocktails, generateCocktail, genCocktail, setActiveCockta
   return (
     <>
     { cocktails?.length ?  
-        <div className="h-[100%] flex flex-row flex-wrap flex-grow-0 overflow-scroll justify-center mt-4 pb-16">
+        <div className="h-[100%] flex flex-row flex-wrap flex-grow-0 overflow-scroll justify-center pb-16">
             {/* Generate Cocktail Button */}
             <button
-            className={`my-2 text-white ring-indigo-600 hover:bg-indigo-700 bg-indigo-600 inline-block rounded-lg px-4 py-1.5 text-base font-semibold leading-7 shadow-sm ring-1 hover:cursor-pointer w-[95%]`}
+            className={`mb-2 text-white ring-indigo-600 hover:bg-indigo-700 bg-indigo-600 inline-block rounded-lg px-4 py-1.5 text-base font-semibold leading-7 shadow-sm ring-1 hover:cursor-pointer w-[95%]`}
             onClick={generateCocktail}
             >
                 Generate Cocktail with OpenAI
@@ -63,18 +63,9 @@ const CocktailList = ({cocktails, generateCocktail, genCocktail, setActiveCockta
                                 <img className="object-contain" src={cocktail.image_url}/>
                             </div>
                                 <p>{cocktail.name.replace('\\\'', '\'')}</p>
-                            <p className="text-sm">
+                            <p className="text-xs my-2">
                                 {arrayToString(cocktail.ingredients)}
                             </p>
-                            {/* <p className="text-sm">
-                                {cocktail.serving_container}
-                            </p> */}
-                            {/* PERCENT OF INGREDIENT HITS AND INSTRUCTIONS */}
-                                {/* <p margin="10px 0px 0px 0px;">{String(cocktail.ing_percentage * 100) + '% of ingredients available'}</p> */}
-                            {/* <div className="w-[33%]">
-                                <h2>Directions</h2>
-                                <p margin="10px 0px; ">{cocktail.instructions}</p>
-                            </div> */}
                         </div>
                 </div>))}
 

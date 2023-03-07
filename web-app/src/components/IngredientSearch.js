@@ -29,7 +29,7 @@ import { X } from 'react-feather'
 // [x] hook up openAI cocktail generation (20 min)
 // [ ] Desktop cleanup (cocktail list, see cocktails CTA) (20 min)
 // [HOLD] ingredient select on enter with direct hit (10 min)
-// [ ] style cocktail page (+desktop) (20 min)
+// [x] style cocktail page (+desktop) (20 min)
 // [ ] full cocktail counts (5 min)
 // [ ] gradient bg implementation (20 min)
 // [ ] refactor cocktail page into route (TBD)
@@ -45,8 +45,8 @@ const IngredientSearch = ({initialData}) => {
     const [selectedIds, setSelectedIds] = useState([])
 
     const generateCocktail = (ingredients) => {
-    //    axios.post('https://vjj6xrqlv1.execute-api.us-west-2.amazonaws.com/production/generate_cocktail', {'ingredients': ingredients})
-         axios.post('http://127.0.0.1:5000/generate_cocktail', {'ingredients': selectedIds})
+       axios.post('https://vjj6xrqlv1.execute-api.us-west-2.amazonaws.com/production/generate_cocktail', {'ingredients': ingredients})
+        //  axios.post('http://127.0.0.1:5000/generate_cocktail', {'ingredients': selectedIds})
             .then(res => {
                 var savedResults = res.data.cocktails
                 setGenCocktail(savedResults)
@@ -56,8 +56,8 @@ const IngredientSearch = ({initialData}) => {
 
 
     const getRecommendations = () => {
-        // axios.post('https://vjj6xrqlv1.execute-api.us-west-2.amazonaws.com/production/recommend_cocktails', {'ingredients': selectedIds})
-        axios.post('http://127.0.0.1:5000/recommend_cocktails', {'ingredients': selectedIds})
+        axios.post('https://vjj6xrqlv1.execute-api.us-west-2.amazonaws.com/production/recommend_cocktails', {'ingredients': selectedIds})
+        // axios.post('http://127.0.0.1:5000/recommend_cocktails', {'ingredients': selectedIds})
             .then(res => {
                 var savedResults = res.data.cocktails
                 setCocktails(savedResults)

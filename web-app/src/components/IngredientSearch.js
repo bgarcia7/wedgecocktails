@@ -27,7 +27,7 @@ import { X } from 'react-feather'
 // [x] make ingredient selection home page
 // [x] redeploy zappa and hook up to prod back-end (20 min, 14 min)
 // [x] hook up openAI cocktail generation (20 min)
-// [ ] Desktop cleanup (cocktail list, see cocktails CTA) (20 min)
+// [x] Desktop cleanup (cocktail list, see cocktails CTA) (20 min)
 // [HOLD] ingredient select on enter with direct hit (10 min)
 // [x] style cocktail page (+desktop) (20 min)
 // [ ] full cocktail counts (5 min)

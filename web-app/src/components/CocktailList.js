@@ -9,31 +9,46 @@ function arrayToString(array, quantity=false) {
 }
 
 const CocktailList = ({cocktails, generateCocktail, genCocktail, setActiveCocktailID}) => {
+    console.log('generated cocktails', genCocktail)
   return (
     <>
-        <button
-            className={`mt-[2vh] mb-[5vh] text-white ring-indigo-600 hover:bg-indigo-700 bg-indigo-600 inline-block rounded-lg px-4 py-1.5 text-base font-semibold leading-7 shadow-sm ring-1 hover:cursor-pointer`}
+    { cocktails?.length ?  
+        <div className="h-[100%] flex flex-row flex-wrap flex-grow-0 overflow-scroll justify-center mt-4 pb-16">
+            {/* Generate Cocktail Button */}
+            <button
+            className={`my-2 text-white ring-indigo-600 hover:bg-indigo-700 bg-indigo-600 inline-block rounded-lg px-4 py-1.5 text-base font-semibold leading-7 shadow-sm ring-1 hover:cursor-pointer w-[95%]`}
             onClick={generateCocktail}
-        >
-            Generate Cocktail with OpenAI
-        </button>
-        {genCocktail?.length ?
-            <div
-                className="flex flex-col align-middle justify-top overflow-hidden bg-white h-[max-30vh] ring-1 ring-gray-100 rounded-lg shadow-lg w-[45%] sm:w-[25%] m-2 p-4 pt-1 rounded-lg shadow-sm duration-150 ease-in hover:ease-out hover:-translate-y-0.5 hover:shadow-md hover:cursor-pointer">
-                <div className="text-clip flex flex-col align-center">
-                        <div className="h-[25vh]">
-                            <img className="object-contain" src={genCocktail[0].image_url}/>
-                        </div>
-                            <p>{genCocktail[0].name}</p>
-                        <p className="text-sm">
-                        {genCocktail[0].ingredients}
-                        </p>
+            >
+                Generate Cocktail with OpenAI
+            </button>
+            {genCocktail?.length ?
+                <div key={genCocktail[0].name} className="flex flex-col align-middle bg-white w-[100%] sm:w-[30%] p-3 duration-150 ease-in ring-1 ring-gray-100 m-2 p-6  rounded-lg shadow-sm duration-150 ease-in hover:ease-out hover:-translate-y-0.5 hover:shadow-md hover:cursor-pointer">
+                <h1 className={'text-4xl'}>{genCocktail[0].name.replace('\\\'', '\'')}</h1>
+                <div className="flex justify-center align-middle rounded-full object-contain bg-url(">
+                    <img className="h-[45vh] object-contain" src={genCocktail[0].image_url}/>
+                </div>
+                <div className="mb-3">
+                    <h2 className="text-xl">Ingredients</h2>
+                    {genCocktail[0].ingredients.map((ingredient, ix) => {
+                        return (
+                            <p key={"gencocktail-ingredient-" + String(ix)} className="flex flex-row justify-between">
+                                {ingredient}
+                            </p>
+                        )}
+                    )}
+                </div>
+                <div className="mb-3">
+                    <h2 className="text-xl">Directions</h2>
+                    <p>{genCocktail[0].directions}</p>
+                </div>
+                <div className="">
+                    <h2 className="text-xl">Serving Container</h2>
+                    <p>{genCocktail[0].serving_container}</p>
                 </div>
             </div>: null}
 
-        { cocktails?.length ?  
-            <div className="h-[100%] flex flex-row flex-wrap flex-grow-0 overflow-scroll justify-center pb-16">
-                {cocktails.map((cocktail, ix) => (
+            {/* Cocktail List */}
+            {cocktails.map((cocktail, ix) => (
                 <div 
                     key={cocktail.name} 
                     onClick={() => setActiveCocktailID(cocktail.objectID)}

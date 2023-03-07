@@ -10,9 +10,12 @@ import os
 app = Flask(__name__)
 CORS(app)
 
+# import openai
+# openai.organization = os.environ.get('OPENAI_ORG')
+# openai.api_key = os.environ.get('OPENAI_KEY')
 import openai
-openai.organization = os.environ.get('OPENAI_ORG')
-openai.api_key = os.environ.get('OPENAI_KEY')
+openai.organization = 'org-JoyTBJ8CFCC0eUSQnlLSHDxK'
+openai.api_key = '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'
 
 GENERATE_COCKTAIL_PROMPT_PREFIX = """
 
@@ -68,6 +71,13 @@ def generate_cocktail():
         n=1,
         size="1024x1024"
     )
+
+#     completion = openai.ChatCompletion.create(
+#   model="gpt-3.5-turbo", 
+#   messages=[{"role": "user", "content": "Tell the world about the ChatGPT API in the style of a pirate."}]
+# )
+
+# print(completion)
     image_url = response['data'][0]['url']
     print('RECIPE IMAGE', response)
     cocktail['image_url'] = image_url

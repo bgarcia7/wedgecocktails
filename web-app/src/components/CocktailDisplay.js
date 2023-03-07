@@ -12,6 +12,7 @@ const CocktailDisplay = ({ cocktails, generateCocktail, genCocktail, closeCockta
         <div className={`${styles.xPadding} flex flex-col overflow:hidden h-[100%] align-middle`}>
             <div className="flex justify-end mt-3">
                 <X 
+                    className="duration-200 ease-in hover:ease-out hover:-translate-y-0.5 hover:cursor-pointer hover:rotate-90"
                     onClick={activeCocktailID ? () => setActiveCocktailID(null) : closeCocktailDrawer} 
                     size={20}
                 />
@@ -23,7 +24,7 @@ const CocktailDisplay = ({ cocktails, generateCocktail, genCocktail, closeCockta
                 <CocktailList
                     cocktails={cocktails}
                     generateCocktail={generateCocktail}
-                    getCocktail={genCocktail}
+                    genCocktail={genCocktail}
                     setActiveCocktailID={setActiveCocktailID}
                 />
             }

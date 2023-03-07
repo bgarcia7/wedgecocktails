@@ -37,8 +37,8 @@ export async function getServerSideProps({ query }) {
     if (query.ingredients){
       ingredients = query.ingredients.split(',')
     }
-    const res = await axios.post('https://vjj6xrqlv1.execute-api.us-west-2.amazonaws.com/production/recommend_cocktails', {'ingredients': ingredients})
-    // const res = await axios.post('http://127.0.0.1:5000/recommend_cocktails', {'ingredients': ingredients})
+    // const res = await axios.post('https://vjj6xrqlv1.execute-api.us-west-2.amazonaws.com/production/recommend_cocktails', {'ingredients': ingredients})
+    const res = await axios.post('http://127.0.0.1:5000/recommend_cocktails', {'ingredients': ingredients})
     const data = await res.data.cocktails 
     return { props: { initialData:data } } 
 } 

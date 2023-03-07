@@ -22,28 +22,32 @@ const CocktailList = ({cocktails, generateCocktail, genCocktail, setActiveCockta
                 Generate Cocktail with OpenAI
             </button>
             {genCocktail?.length ?
-                <div key={genCocktail[0].name} className="flex flex-col align-middle bg-white w-[100%] sm:w-[30%] p-3 duration-150 ease-in ring-1 ring-gray-100 m-2 p-6  rounded-lg shadow-sm duration-150 ease-in hover:ease-out hover:-translate-y-0.5 hover:shadow-md hover:cursor-pointer">
+                <div key={genCocktail[0].name} className="flex flex-col align-middle bg-white w-[100%] sm:w-[80%] duration-150 ease-in ring-1 ring-gray-100 m-2 p-6 sm:p-8 rounded-lg shadow-sm duration-150 ease-in hover:ease-out hover:-translate-y-0.5 hover:shadow-md hover:cursor-pointer">
                 <h1 className={'text-4xl'}>{genCocktail[0].name.replace('\\\'', '\'')}</h1>
-                <div className="flex justify-center align-middle rounded-full object-contain bg-url(">
-                    <img className="h-[45vh] object-contain" src={genCocktail[0].image_url}/>
-                </div>
-                <div className="mb-3">
-                    <h2 className="text-xl">Ingredients</h2>
-                    {genCocktail[0].ingredients.map((ingredient, ix) => {
-                        return (
-                            <p key={"gencocktail-ingredient-" + String(ix)} className="flex flex-row justify-between">
-                                {ingredient}
-                            </p>
-                        )}
-                    )}
-                </div>
-                <div className="mb-3">
-                    <h2 className="text-xl">Directions</h2>
-                    <p>{genCocktail[0].directions}</p>
-                </div>
-                <div className="">
-                    <h2 className="text-xl">Serving Container</h2>
-                    <p>{genCocktail[0].serving_container}</p>
+                <div className="sm:flex mt-4">
+                    <div className="my-6 max-h-[45vh] sm:w-[60%] lg:w-[40%] prose prose-img:rounded-full justify-content align-middle mr-4">
+                        <img className="lg:w-[80%] lg:max-w-[300px] sm:w-[100%] object-contain" src={genCocktail[0].image_url}/>
+                    </div>
+                    <div>
+                        <div className="mb-3">
+                            <h2 className="text-xl">Ingredients</h2>
+                            {genCocktail[0].ingredients.map((ingredient, ix) => {
+                                return  (
+                                    <p key={"gencocktail-ingredient-" + String(ix)} className="flex flex-row justify-between">
+                                        {ingredient}
+                                    </p>
+                                )}
+                            )}
+                        </div>
+                        <div className="mb-3">
+                            <h2 className="text-xl">Directions</h2>
+                            <p>{genCocktail[0].directions}</p>
+                        </div>
+                        <div className="">
+                            <h2 className="text-xl">Serving Container</h2>
+                            <p>{genCocktail[0].serving_container}</p>
+                        </div>
+                    </div>
                 </div>
             </div>: null}
 

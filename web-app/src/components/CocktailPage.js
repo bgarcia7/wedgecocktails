@@ -2,9 +2,9 @@ import React from 'react'
 import { styles } from '../styles'
 
 const CocktailPage = ({cocktail}) => {
-    console.log(cocktail)
+  console.log('COCKTAIL PAGE: ', cocktail)
   return (
-    <div key={cocktail.name} className="flex flex-col align-middle bg-white w-[100%] sm:w-[70%] sm:mx-[15%] p-3 duration-150 ease-in overflow-scroll">
+    <div key={cocktail.name} className="flex flex-col align-middle w-[100%] sm:w-[70%] sm:mx-[15%] p-3 duration-150 ease-in overflow-scroll">
             <h1 className={`${styles.pageTitle} mb-2 mt-12`}>{cocktail.name.replace('\\\'', '\'')}</h1>
             <div className="flex">
                 <p className={`${styles.pageBody} text-center px-2 rounded-xl ${cocktail.ing_percentage === 1 ? 'bg-green-300 text-green-700' : (cocktail.ing_percentage > 0.5 ? 'bg-yellow-300 text-yellow-700' : 'bg-red-300 text-red-700')}`}>

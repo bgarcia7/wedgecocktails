@@ -3,6 +3,7 @@ import PrimaryButton from './'
 import { styles } from '../styles'
 import CocktailList from './CocktailList'
 import CocktailPage from './CocktailPage'
+import { BGGradients } from './'
 import { X } from 'react-feather'
 
 const CocktailDisplay = ({ cocktails, generateCocktail, genCocktail, closeCocktailDrawer}) => {

@@ -19,7 +19,6 @@ export default function Home({ initialData }) {
                   Make great cocktails with whatever's on-hand. 
                 </p>
               </div>
-              <BGGradients/>
             </div>
           </div> */}
           <IngredientSearch initialData={initialData}/>

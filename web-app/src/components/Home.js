@@ -5,7 +5,7 @@ import { styles } from '../styles'
 
 export default function Home({ initialData }) {
   return (
-    <div className="max-w-[100vw] isolate bg-white">
+    <div className="max-w-[100vw] max-h-100vh isolate bg-white">
         <div className={`${styles.xPadding} w-[100vw]`}>
           <IngredientSearch initialData={initialData}/>
         </div>

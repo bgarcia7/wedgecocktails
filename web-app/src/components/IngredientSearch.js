@@ -47,6 +47,7 @@ const IngredientSearch = ({initialData}) => {
     const [ingredientsCache, setIngredientsCache] = useState({})
     const [selectedIds, setSelectedIds] = useState([])
 
+        
     const summarizeCocktails = (cocktails) => {
         let counts = {}
         cocktails.forEach(cocktail => {

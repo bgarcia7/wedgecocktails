@@ -4,16 +4,20 @@ import Image from 'next/image'
 import { Home, Navbar, IngredientSearch }  from '../components'
 import { Inter } from '@next/font/google'
 import { styles } from '../styles'
+import { useEffect } from 'react'
 
 const inter = Inter({ subsets: ['latin'] })
 
-function Main({initialData}) {
-  // window.onresize = function() {
-  //   document.body.height = window.innerHeight;
-  // }
+function Main({initialData}) { 
 
-  // window.onresize();
-  
+  useEffect(() => {
+      window.onresize = function() {
+          document.body.height = window.innerHeight;
+      }
+
+      window.onresize();
+  }, [])
+
   return (
     <>
       <Head>

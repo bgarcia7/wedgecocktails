@@ -8,6 +8,12 @@ import { styles } from '../styles'
 const inter = Inter({ subsets: ['latin'] })
 
 function Main({initialData}) {
+  window.onresize = function() {
+    document.body.height = window.innerHeight;
+  }
+
+  window.onresize();
+  
   return (
     <>
       <Head>
